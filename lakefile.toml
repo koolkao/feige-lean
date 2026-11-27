@@ -1,0 +1,39 @@
+name = "feige"
+defaultTargets = ["Feige"]
+
+[leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+
+# Reuse the prebuilt Mathlib v4.36.0 (and its dependencies) from a sibling project
+# via path dependencies, to avoid downloading/building another copy.
+[[require]]
+name = "batteries"
+path = "/Users/mingkao/dev/pequalnp/pequalnp-proofs/lean/.lake/packages/batteries"
+[[require]]
+name = "Qq"
+path = "/Users/mingkao/dev/pequalnp/pequalnp-proofs/lean/.lake/packages/Qq"
+[[require]]
+name = "aesop"
+path = "/Users/mingkao/dev/pequalnp/pequalnp-proofs/lean/.lake/packages/aesop"
+[[require]]
+name = "proofwidgets"
+path = "/Users/mingkao/dev/pequalnp/pequalnp-proofs/lean/.lake/packages/proofwidgets"
+[[require]]
+name = "importGraph"
+path = "/Users/mingkao/dev/pequalnp/pequalnp-proofs/lean/.lake/packages/importGraph"
+[[require]]
+name = "LeanSearchClient"
+path = "/Users/mingkao/dev/pequalnp/pequalnp-proofs/lean/.lake/packages/LeanSearchClient"
+[[require]]
+name = "plausible"
+path = "/Users/mingkao/dev/pequalnp/pequalnp-proofs/lean/.lake/packages/plausible"
+[[require]]
+name = "Cli"
+path = "/Users/mingkao/dev/pequalnp/pequalnp-proofs/lean/.lake/packages/Cli"
+[[require]]
+name = "mathlib"
+path = "/Users/mingkao/dev/pequalnp/pequalnp-proofs/lean/.lake/packages/mathlib"
+
+[[lean_lib]]
+name = "Feige"
