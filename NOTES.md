@@ -6,7 +6,7 @@ Ling, *On Samuels' Conjecture* (arXiv:2608.18392v2).
 ## Build approach
 
 * Lake project with a **path dependency** on the prebuilt Mathlib v4.36.0 at
-  `~/dev/pequalnp/pequalnp-proofs/lean/.lake/packages/mathlib` (toolchain `leanprover/lean4:v4.36.0`).
+  a local prebuilt Mathlib (toolchain `leanprover/lean4:v4.36.0`).
   The other Mathlib dependencies (batteries, aesop, …) are also required by path; Lake prints a
   harmless "remove these dependencies" warning. Prebuilt oleans are reused: first build of a
   file importing `Mathlib` took 23 s total, no Mathlib rebuild.

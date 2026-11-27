@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this formalization, please cite it as below."
+title: "A machine-checked proof of Feige's inequality for all δ > 0 (Lean 4)"
+authors:
+  - family-names: Kao
+    given-names: Ming-Chih
+    affiliation: Stanford University
+type: software
+license: Apache-2.0
+repository-code: "https://github.com/koolkao/feige-lean"
+keywords: [Lean 4, Mathlib, formal verification, probability inequalities, Feige's conjecture, Samuels' conjecture]
+references:
+  - type: article
+    title: "On Samuels' Conjecture"
+    authors: [{family-names: Ling, given-names: Zhi}]
+    identifiers: [{type: other, value: "arXiv:2608.18392"}]
+  - type: article
+    title: "On sums of independent random variables with unbounded variance and estimating the average degree in a graph"
+    authors: [{family-names: Feige, given-names: Uriel}]
+    doi: 10.1137/S0097539704447304
