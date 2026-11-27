@@ -89,3 +89,9 @@ Timings: every module compiles in < 15 s; full `lake build` of the project ≈ 1
 None. Every step used for `main` (Claims 3.1–3.2, §2.2, Prop 2.3/Lemma 2.4 via LeanPool, Prop 5.2)
 is machine-checked. Observations: Claim 3.2 does not need `wᵢ ≤ 1` or `pᵢ > 0`; the truncation
 `w̄ = min(w,1)` and the boundary limit (§3.2) are therefore unnecessary for the equal-means case.
+
+## Other prior art (TauCeti, LeanPool ConcentrationInequalities, atlas-lean)
+
+The coordinator pointed to these after the measure bridge was already proved using only the vendored
+LeanPool Feige files plus ~250 lines of our own (`PiDirac.lean`, `MeanOne.lean`, `Main.lean`).
+They were not needed and no code from them was used.
