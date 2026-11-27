@@ -6,6 +6,7 @@ authors:
     given-names: Ming-Chih
     affiliation: Stanford University
 type: software
+doi: 10.5281/zenodo.24573988
 license: Apache-2.0
 repository-code: "https://github.com/koolkao/feige-lean"
 keywords: [Lean 4, Mathlib, formal verification, probability inequalities, Feige's conjecture, Samuels' conjecture]

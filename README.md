@@ -1,5 +1,7 @@
 # Machine-checked proofs of Feige's inequality (all δ > 0) and the lower bound in Samuels' conjecture
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24573988.svg)](https://doi.org/10.5281/zenodo.24573988)
+
 This repository contains a Lean 4 / Mathlib formalization of **Feige's small-deviation inequality in its
 general form**. Let X₁, …, Xₙ be independent, nonnegative and integrable random variables with E[Xᵢ] ≤ μ,
 and suppose μ > 0 and δ > 0. Then
@@ -81,6 +83,10 @@ lake env lean scripts/Axioms.lean
 - AI assistance: the formalization was developed with Claude (Anthropic). Fable (Anthropic) and Gemini 4 Neon
   (Google) were consulted on proof strategy. The author reviewed the work and takes responsibility for it.
 - Vendored code: LeanPool/lean-pool, Apache-2.0.
+
+## Citation
+
+Kao, Ming-Chih. *Machine-checked proofs of Feige's inequality (all δ > 0) and the lower bound in Samuels' conjecture (Lean 4).* Zenodo, 2026. doi:[10.5281/zenodo.24573988](https://doi.org/10.5281/zenodo.24573988) (all versions; v1.1.0: 10.5281/zenodo.24574177).
 
 ## License
 
