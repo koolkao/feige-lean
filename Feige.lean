@@ -6,3 +6,5 @@ import Feige.Bernoulli.ZM
 import Feige.Bernoulli.Moments
 import Feige.Bernoulli.Step
 import Feige.Bernoulli.Claim32
+import Feige.Bernoulli.Thm21
+import Feige.Bernoulli.TwoPointBound
