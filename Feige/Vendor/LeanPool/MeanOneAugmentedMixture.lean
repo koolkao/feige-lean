@@ -6,6 +6,8 @@ Authors: Zhengqing Zhou, GPT-5.6 Pro
 -- Vendored from LeanPool/lean-pool (https://github.com/LeanPool/lean-pool),
 -- file LeanPool/Feige/MeanOneAugmentedMixture.lean at commit 9decab6341e6b0fd82bd7f9763a5dd7a9ce8778d, Apache-2.0 (see LICENSE in this folder).
 -- Changes: import paths renamed from `LeanPool.Feige.*` to `Feige.Vendor.LeanPool.*`.
+-- Portability (Left to Solve CI, Lean v4.33.1): `add_apply`/`smul_apply` qualified as `Measure.*`,
+-- `ite_eq_left/right` replaced by `if_pos/if_neg`, and small elaboration fixes where needed.
 
 module
 
@@ -43,9 +45,9 @@ theorem meanOneAugmentedLatent_isProbability
     (hmean : (∫ x : ℝ, x ∂μ) = 1) :
     IsProbabilityMeasure (meanOneAugmentedLatent μ) := by
   by_cases hM : belowMoment μ = 0
-  · rw [meanOneAugmentedLatent, ite_eq_left hM]
+  · rw [meanOneAugmentedLatent, if_pos hM]
     infer_instance
-  · rw [meanOneAugmentedLatent, ite_eq_right hM]
+  · rw [meanOneAugmentedLatent, if_neg hM]
     exact augmentedLatentMeasure_isProbability hμ hmean
       (lt_of_le_of_ne belowMoment_nonneg (Ne.symm hM))
 
@@ -55,12 +57,12 @@ theorem augmentedTwoPointKernel_comp_meanOneLatent
     (hmean : (∫ x : ℝ, x ∂μ) = 1) :
     augmentedTwoPointKernel ∘ₘ meanOneAugmentedLatent μ = μ := by
   by_cases hM : belowMoment μ = 0
-  · rw [meanOneAugmentedLatent, ite_eq_left hM]
+  · rw [meanOneAugmentedLatent, if_pos hM]
     rw [Measure.dirac_bind augmentedTwoPointKernel.measurable]
     rw [augmentedTwoPointKernel_atom]
     exact (eq_dirac_one_of_belowMoment_eq_zero
       hμ hmean hM).symm
-  · rw [meanOneAugmentedLatent, ite_eq_right hM,
+  · rw [meanOneAugmentedLatent, if_neg hM,
       augmentedTwoPointKernel_comp_latent,
       fullKernelMixture_eq hμ hmean
         (lt_of_le_of_ne belowMoment_nonneg (Ne.symm hM))]

@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this formalization, please cite it as below."
-title: "A machine-checked proof of Feige's inequality for all δ > 0 (Lean 4)"
+title: "Machine-checked proofs of Feige's inequality (all δ > 0) and the lower bound in Samuels' conjecture (Lean 4)"
 authors:
   - family-names: Kao
     given-names: Ming-Chih

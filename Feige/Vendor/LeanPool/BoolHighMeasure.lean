@@ -7,6 +7,8 @@ Authors: Zhengqing Zhou, GPT-5.6 Pro
 -- file LeanPool/Feige/TwoPointProductLaw.lean at commit 9decab6341e6b0fd82bd7f9763a5dd7a9ce8778d, Apache-2.0 (see LICENSE in this folder).
 -- Changes: only `boolHighMeasure`, `boolHighMeasure_isProbability`, `boolHighMeasure_singleton`
 -- and `map_boolHighMeasure_twoPoint` are kept; imports adjusted accordingly.
+-- Portability (Left to Solve CI, Lean v4.33.1): `add_apply`/`smul_apply` qualified as `Measure.*`,
+-- `ite_eq_left/right` replaced by `if_pos/if_neg`, and small elaboration fixes where needed.
 module
 
 public import Feige.Vendor.LeanPool.TwoPointMixture

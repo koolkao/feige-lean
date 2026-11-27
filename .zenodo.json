@@ -1,12 +1,31 @@
 {
-  "title": "A machine-checked proof of Feige's inequality for all δ > 0 (Lean 4)",
+  "title": "Machine-checked proofs of Feige's inequality (all δ > 0) and the lower bound in Samuels' conjecture (Lean 4)",
   "upload_type": "software",
-  "creators": [{"name": "Kao, Ming-Chih", "affiliation": "Stanford University"}],
-  "description": "Lean 4 / Mathlib formalization of Feige's small-deviation inequality for every δ > 0. Let X_1,...,X_n be independent, nonnegative and integrable with E[X_i] ≤ μ. Then P(Σ X_i − E Σ X_i < δμ) ≥ min(δ/(1+δ), 1/e). The proof follows Z. Ling, On Samuels' Conjecture (arXiv:2608.18392). Axioms: propext, Classical.choice, Quot.sound only.",
+  "creators": [
+    {
+      "name": "Kao, Ming-Chih",
+      "affiliation": "Stanford University"
+    }
+  ],
+  "description": "Lean 4 / Mathlib formalization of Feige's small-deviation inequality for every δ > 0. Let X_1,...,X_n be independent, nonnegative and integrable with E[X_i] ≤ μ. Then P(Σ X_i − E Σ X_i < δμ) ≥ min(δ/(1+δ), 1/e). The proof follows Z. Ling, On Samuels' Conjecture (arXiv:2608.18392). Axioms: propext, Classical.choice, Quot.sound only. Version 1.1.0 adds the lower-bound half of Samuels' conjecture (Ling, Theorem 1.1) for arbitrary ordered nonnegative means; the sharpness half is not formalized.",
   "license": "Apache-2.0",
-  "keywords": ["Lean 4", "Mathlib", "formal verification", "probability inequalities", "Feige's conjecture"],
+  "keywords": [
+    "Lean 4",
+    "Mathlib",
+    "formal verification",
+    "probability inequalities",
+    "Feige's conjecture"
+  ],
   "related_identifiers": [
-    {"identifier": "arXiv:2608.18392", "relation": "isSupplementTo", "scheme": "arxiv"},
-    {"identifier": "10.1137/S0097539704447304", "relation": "references", "scheme": "doi"}
+    {
+      "identifier": "arXiv:2608.18392",
+      "relation": "isSupplementTo",
+      "scheme": "arxiv"
+    },
+    {
+      "identifier": "10.1137/S0097539704447304",
+      "relation": "references",
+      "scheme": "doi"
+    }
   ]
 }

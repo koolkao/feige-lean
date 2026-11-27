@@ -5,7 +5,10 @@ Authors: Zhengqing Zhou, GPT-5.6 Pro
 -/
 -- Vendored from LeanPool/lean-pool (https://github.com/LeanPool/lean-pool),
 -- file LeanPool/Feige/MeasurableTwoPointKernel.lean at commit 9decab6341e6b0fd82bd7f9763a5dd7a9ce8778d, Apache-2.0 (see LICENSE in this folder).
--- Changes: import paths renamed from `LeanPool.Feige.*` to `Feige.Vendor.LeanPool.*`.
+-- Changes: import paths renamed from `LeanPool.Feige.*` to `Feige.Vendor.LeanPool.*`;
+-- two proofs given explicit type annotations and `measurable_twoPointParams_val` added, so that they also elaborate in a non-module file.
+-- Portability (Left to Solve CI, Lean v4.33.1): `add_apply`/`smul_apply` qualified as `Measure.*`,
+-- `ite_eq_left/right` replaced by `if_pos/if_neg`, and small elaboration fixes where needed.
 
 module
 
@@ -33,7 +36,7 @@ noncomputable section
 support points. -/
 theorem measurable_twoPointMeasure_apply {B : Set ℝ} (hB : MeasurableSet B) :
     Measurable (fun p : ℝ × ℝ ↦ twoPointMeasure p.1 p.2 B) := by
-  simp only [twoPointMeasure, add_apply, smul_apply,
+  simp only [twoPointMeasure, Measure.add_apply, Measure.smul_apply,
     Measure.dirac_apply' _ hB]
   unfold twoPointLowerWeight twoPointUpperWeight
   fun_prop
@@ -44,6 +47,10 @@ def TwoPointParams :=
 
 instance : MeasurableSpace TwoPointParams :=
   MeasurableSpace.comap Subtype.val inferInstance
+
+/-- The coordinate projection on admissible parameters is measurable (added for the vendored copy). -/
+theorem measurable_twoPointParams_val : Measurable (fun q : TwoPointParams ↦ q.1) :=
+  fun s hs ↦ ⟨s, hs, rfl⟩
 
 /-- The Markov kernel sending `(x,y)` to the mean-one two-point law
 `Q_{x,y}`. -/
@@ -71,7 +78,7 @@ theorem twoPointKernel_nonnegative_support (p : TwoPointParams)
     (hx : 0 ≤ p.1.1) :
     twoPointKernel p (Iio 0) = 0 := by
   rw [twoPointKernel_apply, twoPointMeasure]
-  simp only [add_apply, smul_apply,
+  simp only [Measure.add_apply, Measure.smul_apply,
     Measure.dirac_apply' _ measurableSet_Iio]
   have hy : 0 ≤ p.1.2 := le_trans (by norm_num) p.2.2.1
   simp [not_lt_of_ge hx, not_lt_of_ge hy]
@@ -111,8 +118,11 @@ def strictPairSet : Set (ℝ × ℝ) :=
   {p | p.1 < 1 ∧ 1 < p.2}
 
 theorem measurableSet_strictPairSet : MeasurableSet strictPairSet := by
-  exact (measurableSet_lt measurable_fst measurable_const).inter
-    (measurableSet_lt measurable_const measurable_snd)
+  have h1 : MeasurableSet {p : ℝ × ℝ | p.1 < 1} :=
+    measurableSet_lt measurable_fst measurable_const
+  have h2 : MeasurableSet {p : ℝ × ℝ | 1 < p.2} :=
+    measurableSet_lt measurable_const measurable_snd
+  exact h1.inter h2
 
 /-- Every strict below-above pair is an admissible two-point parameter. -/
 theorem strictPairSet_admissible {p : ℝ × ℝ} (hp : p ∈ strictPairSet) :
@@ -313,8 +323,8 @@ theorem latentPairMeasure_univ
       apply (Measure.ae_prod_iff_ae_ae heqmeas).2
       filter_upwards [ae_restrict_mem measurableSet_Iio] with x hx
       filter_upwards [ae_restrict_mem measurableSet_Ioi] with y hy
-      rw [← ENNReal.ofReal_add (sub_nonneg.mpr hy.le)
-        (sub_nonneg.mpr hx.le)]
+      rw [← ENNReal.ofReal_add (sub_nonneg.mpr (le_of_lt (show (1 : ℝ) < y from hy)))
+        (sub_nonneg.mpr (le_of_lt (show x < (1 : ℝ) from hx)))]
       congr 1
       ring
     rw [lintegral_congr_ae hae]
@@ -353,8 +363,8 @@ theorem mass_below_add_above
     μ (Iio 1) + μ (Ioi 1) = 1 - μ {1} := by
   have hparts := congrArg (fun ν : Measure ℝ ↦ ν Set.univ)
     (restrict_below_add_atom_add_above μ)
-  simp only [add_apply, Measure.restrict_apply MeasurableSet.univ,
-    Set.univ_inter, smul_apply, measure_univ,
+  simp only [Measure.add_apply, Measure.restrict_apply MeasurableSet.univ,
+    Set.univ_inter, Measure.smul_apply, measure_univ,
     Measure.dirac_apply' _ MeasurableSet.univ, Set.indicator_of_mem
       (Set.mem_univ (1 : ℝ)), Pi.one_apply, smul_eq_mul, mul_one] at hparts
   apply ENNReal.eq_sub_of_add_eq' (by simp)
@@ -424,7 +434,7 @@ theorem fullKernelMixture_isProbability
     (hM : 0 < belowMoment μ) :
     IsProbabilityMeasure (fullKernelMixture μ (belowMoment μ)) := by
   constructor
-  rw [fullKernelMixture, add_apply, smul_apply,
+  rw [fullKernelMixture, Measure.add_apply, Measure.smul_apply,
     Measure.dirac_apply' _ MeasurableSet.univ,
     Set.indicator_of_mem (Set.mem_univ (1 : ℝ)), Pi.one_apply,
     smul_eq_mul, mul_one,
@@ -591,9 +601,9 @@ theorem fullKernelMixture_eq_expanded
     (hμ : Integrable (fun x : ℝ ↦ x) μ) (M : ℝ) :
     fullKernelMixture μ M = expandedTwoPointMixture μ M := by
   ext B hB
-  rw [fullKernelMixture, expandedTwoPointMixture, add_apply,
-    add_apply, nondegenerateKernelMixture_apply_expanded hμ M hB]
-  simp only [smul_apply, add_apply, smul_eq_mul]
+  rw [fullKernelMixture, expandedTwoPointMixture, Measure.add_apply,
+    Measure.add_apply, nondegenerateKernelMixture_apply_expanded hμ M hB]
+  simp only [Measure.smul_apply, Measure.add_apply, smul_eq_mul]
 
 /-- For a mean-one probability law with a nonzero lower moment, sampling the
 latent pair and then the corresponding two-point law reconstructs the

@@ -5,7 +5,10 @@ Authors: Zhengqing Zhou, GPT-5.6 Pro
 -/
 -- Vendored from LeanPool/lean-pool (https://github.com/LeanPool/lean-pool),
 -- file LeanPool/Feige/AugmentedLatentSupport.lean at commit 9decab6341e6b0fd82bd7f9763a5dd7a9ce8778d, Apache-2.0 (see LICENSE in this folder).
--- Changes: import paths renamed from `LeanPool.Feige.*` to `Feige.Vendor.LeanPool.*`.
+-- Changes: import paths renamed from `LeanPool.Feige.*` to `Feige.Vendor.LeanPool.*`;
+-- `measurable_subtype_coe` replaced by `measurable_twoPointParams_val` (elaborates in non-module files).
+-- Portability (Left to Solve CI, Lean v4.33.1): `add_apply`/`smul_apply` qualified as `Measure.*`,
+-- `ite_eq_left/right` replaced by `if_pos/if_neg`, and small elaboration fixes where needed.
 
 module
 
@@ -32,10 +35,11 @@ theorem measurableSet_augmentedParamNonnegative :
   · simp
   · change MeasurableSet {q : TwoPointParams |
       0 ≤ q.1.1 ∧ 1 < q.1.2}
+    rw [Set.setOf_and]
     exact (measurableSet_le measurable_const
-      (measurable_fst.comp measurable_subtype_coe)).inter
+      (measurable_fst.comp measurable_twoPointParams_val)).inter
       (measurableSet_lt measurable_const
-        (measurable_snd.comp measurable_subtype_coe))
+        (measurable_snd.comp measurable_twoPointParams_val))
 
 theorem measurableSet_augmentedParamsNonnegative (n : ℕ) :
     MeasurableSet {p : Fin n → AugmentedTwoPointParams |
@@ -81,10 +85,11 @@ theorem ae_latentParams_nonnegative
   unfold latentParamsMeasure
   rw [ae_map_iff measurable_pairToParams.aemeasurable
     (by
+      rw [Set.setOf_and]
       exact (measurableSet_le measurable_const
-        (measurable_fst.comp measurable_subtype_coe)).inter
+        (measurable_fst.comp measurable_twoPointParams_val)).inter
         (measurableSet_lt measurable_const
-          (measurable_snd.comp measurable_subtype_coe)))]
+          (measurable_snd.comp measurable_twoPointParams_val)))]
   filter_upwards
     [ae_latentPair_first_nonnegative hsupport M,
       (show ∀ᵐ p ∂latentPairMeasure μ M,
@@ -101,10 +106,10 @@ theorem ae_augmentedLatent_nonnegative
     ∀ᵐ p ∂meanOneAugmentedLatent μ,
       AugmentedParamNonnegative p := by
   by_cases hM : belowMoment μ = 0
-  · rw [meanOneAugmentedLatent, ite_eq_left hM]
+  · rw [meanOneAugmentedLatent, if_pos hM]
     rw [ae_dirac_iff measurableSet_augmentedParamNonnegative]
     simp [AugmentedParamNonnegative]
-  · rw [meanOneAugmentedLatent, ite_eq_right hM,
+  · rw [meanOneAugmentedLatent, if_neg hM,
       augmentedLatentMeasure, ae_add_measure_iff]
     constructor
     · exact Measure.ae_smul_measure

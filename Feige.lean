@@ -11,3 +11,6 @@ import Feige.Bernoulli.TwoPointBound
 import Feige.Bridge.PiDirac
 import Feige.Bridge.MeanOne
 import Feige.Main
+import Feige.Calculus.Prop51
+import Feige.Bernoulli.Thm21General
+import Feige.Samuels.Theorem11

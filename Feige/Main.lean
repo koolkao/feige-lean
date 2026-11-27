@@ -70,7 +70,10 @@ theorem main :
     rw [← Finset.sum_div, div_lt_iff₀ hμ, Finset.sum_add_distrib, Finset.sum_sub_distrib]
     simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
     constructor <;> intro h <;> nlinarith
-  have haevec : AEMeasurable (fun ω i => Y i ω) ℙ := AEMeasurable.of_eval haeY
+  have haevec : AEMeasurable (fun ω i => Y i ω) ℙ := by
+    first
+    | exact AEMeasurable.of_eval haeY
+    | exact aemeasurable_pi_lambda _ haeY
   rw [hevent, ← Measure.map_apply_of_aemeasurable haevec (Samuels.measurableSet_evt δ), hjoint]
   exact (ENNReal.ofReal_le_iff_le_toReal (measure_ne_top _ _)).mp hbound
 
