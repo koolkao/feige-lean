@@ -4,7 +4,7 @@
   "creators": [
     {
       "name": "Kao, Ming-Chih",
-      "affiliation": "Stanford University"
+      "orcid": "0000-0001-7274-9430"
     }
   ],
   "description": "Lean 4 / Mathlib formalization of Feige's small-deviation inequality for every δ > 0. Let X_1,...,X_n be independent, nonnegative and integrable with E[X_i] ≤ μ. Then P(Σ X_i − E Σ X_i < δμ) ≥ min(δ/(1+δ), 1/e). The proof follows Z. Ling, On Samuels' Conjecture (arXiv:2608.18392). Axioms: propext, Classical.choice, Quot.sound only. Version 1.1.0 adds the lower-bound half of Samuels' conjecture (Ling, Theorem 1.1) for arbitrary ordered nonnegative means; the sharpness half is not formalized.",

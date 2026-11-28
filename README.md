@@ -79,7 +79,7 @@ lake env lean scripts/Axioms.lean
 
 ## Credits
 
-- Author: Ming-Chih Kao (Stanford University).
+- Author: Ming-Chih Kao.
 - AI assistance: the formalization was developed with Claude (Anthropic). Fable (Anthropic) and Gemini 4 Neon
   (Google) were consulted on proof strategy. The author reviewed the work and takes responsibility for it.
 - Vendored code: LeanPool/lean-pool, Apache-2.0.

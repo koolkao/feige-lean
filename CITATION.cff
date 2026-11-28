@@ -4,7 +4,7 @@ title: "Machine-checked proofs of Feige's inequality (all δ > 0) and the lower 
 authors:
   - family-names: Kao
     given-names: Ming-Chih
-    affiliation: Stanford University
+    orcid: "https://orcid.org/0000-0001-7274-9430"
 type: software
 doi: 10.5281/zenodo.24573988
 license: Apache-2.0
